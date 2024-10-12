@@ -4,7 +4,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 // JWT Secret
-const JWT_SECRET = "your_jwt_secret"; // Keep this in environment variables
+const JWT_SECRET = "firacil"; // Keep this in environment variables
 
 // POST /api/auth/signup
 router.post('/signup', async (req, res) => {
@@ -60,7 +60,7 @@ router.get('/profile', async (req, res) => {
       userId: user._id,
       name: user.name,
       email: user.email,
-      settings: {}, // add any other user settings here
+      settings: {}, // we can add any other user settings
     });
   } catch (error) {
     res.status(401).json({ message: 'Token is not valid' });
