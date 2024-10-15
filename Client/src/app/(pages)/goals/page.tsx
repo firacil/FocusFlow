@@ -10,6 +10,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import { GoalInfo } from "@/components/charts/goal-info";
+import GoalHistory from "@/components/goals/goal-history";
 
 export default function GoalsPage() {
   return (
@@ -33,7 +35,10 @@ export default function GoalsPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <PlaceholderContent />
+      <div className="flex flex-col gap-5 pt-5">
+      <GoalInfo />
+      <GoalHistory  />
+      </div>
     </ContentLayout>
   );
 }

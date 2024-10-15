@@ -10,6 +10,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import { ProductivityOverview } from "@/components/charts/productivity-overview";
+import { WeeklyProductivity } from "@/components/charts/weekly-productivity";
+import { MonthlyProductivity } from "@/components/charts/monthly-productivity";
 
 export default function ReportsPage() {
   return (
@@ -33,7 +36,13 @@ export default function ReportsPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <PlaceholderContent />
+      <div className="pt-5 flex flex-col gap-5">
+        <ProductivityOverview />
+        <div className="grid lg:grid-cols-2 gap-5">
+          <WeeklyProductivity />
+          <MonthlyProductivity />
+        </div>
+      </div>
     </ContentLayout>
   );
 }

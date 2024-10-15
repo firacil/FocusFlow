@@ -10,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
+import { TimerInfo } from "@/components/timer/timer-info";
 
 export default function TimerPage() {
   return (
@@ -33,7 +34,10 @@ export default function TimerPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <PlaceholderContent />
+      <div className="pt-5">
+      <TimerInfo />
+
+      </div>
     </ContentLayout>
   );
 }

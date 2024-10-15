@@ -19,6 +19,9 @@ import {
 } from "@/components/ui/tooltip";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { useStore } from "@/hooks/use-store";
+import { CurrentSessionInfo } from "@/components/charts/current-session-info";
+import { ProductivityOverview } from "@/components/charts/productivity-overview";
+import { GoalProgress } from "@/components/charts/goal-progress";
 
 export default function DashboardPage() {
   const sidebar = useStore(useSidebar, (x) => x);
@@ -39,6 +42,13 @@ export default function DashboardPage() {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+      <div className="flex flex-col gap-5 pt-5">
+        <div className="grid lg:grid-cols-2 gap-5">
+        <CurrentSessionInfo />
+        <GoalProgress />
+        </div>
+        <ProductivityOverview />
+      </div>
     </ContentLayout>
   );
 }
