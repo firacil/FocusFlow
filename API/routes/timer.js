@@ -20,24 +20,35 @@ router.post('/start', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Create a new session associated with the user
-    const session = new Session({
-      sessionType,
-      duration,
-      user: user._id,  // Associate session with the user
-    });
+    // Check for existing session for the user
+    const existingSession = await Session.findOne({ user: user._id, status: 'started' });
 
-    // Save session to the database
-    const savedSession = await session.save();
+    if (existingSession) {
+      // Respond with a message indicating the timer is already started
+      return res.status(409).json({ message: 'Timer already started, click stop to stop the timer.' });
+    } else {
+      // Create a new session if none exists
+      const session = new Session({
+        sessionType,
+        duration,
+        user: user._id,  // Associate session with the user
+        startTime: new Date(), // Set start time
+        status: 'started', // Set status to started
+      });
 
-    // Respond with session details
-    res.status(201).json({
-      sessionId: savedSession._id,
-      startTime: savedSession.startTime.toISOString(),
-      status: savedSession.status,
-      userId: savedSession.user,
-    });
+      // Save session to the database
+      const savedSession = await session.save();
+
+      // Respond with session details
+      res.status(201).json({
+        sessionId: savedSession._id,
+        startTime: savedSession.startTime.toISOString(),
+        status: savedSession.status,
+        userId: savedSession.user,
+      });
+    }
   } catch (error) {
+    console.error('Error starting session:', error);  // Log the error for debugging
     res.status(500).json({ message: 'Server error', error });
   }
 });
@@ -181,7 +192,8 @@ router.get('/current', async (req, res) => {
     }
 
     // Calculate remaining time (Assuming you have a method to calculate remaining time)
-    const remainingTime = calculateRemainingTime(currentSession.startTime, currentSession.duration);
+    const durationInMilliseconds = currentSession.duration * 60 * 1000; // Convert duration from minutes to milliseconds
+    const remainingTime = calculateRemainingTime(currentSession.startTime, durationInMilliseconds);
 
     // Respond with session details
     res.status(200).json({
@@ -198,12 +210,17 @@ router.get('/current', async (req, res) => {
 const calculateRemainingTime = (startTime, duration) => {
   const elapsedTime = Date.now() - new Date(startTime).getTime();
   const remainingTime = Math.max(0, duration - elapsedTime); // Ensure non-negative time
-  return Math.floor(remainingTime / 1000); // Convert to seconds
+
+  console.log('Start Time:', startTime);
+  console.log('Duration (ms):', duration);
+  console.log('Elapsed Time (ms):', elapsedTime);
+  console.log('Remaining Time (ms):', remainingTime);
+  return Math.floor(remainingTime / (1000 * 60)); // Convert to seconds
 };
 
 // Function to verify JWT (implement as per your authentication strategy)
 const verifyToken = (token) => {
-  const secretKey = 'secret key'; // Replace with your actual secret key
+  const secretKey = 'firacil'; // Replace with your actual secret key
   return jwt.verify(token, secretKey);
 };
 
