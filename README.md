@@ -48,4 +48,4 @@ Here is a little preview of our main feature
 
 Here is a simple flow for the user experience on FocusFlow:
 
-/** here **/
+/** here it is **/
