@@ -1,6 +1,6 @@
 # FocusFlow ~ _Efficient time management for optimal productivity_
 
-![Earphones Facebook Cover](https://github.com/Kad-19/EarXscore/assets/84915133/b62a28c6-4db4-49b5-b90b-b9e47a906249)
+![focusflow](https://github.com/user-attachments/assets/35b5127e-7350-47d4-888d-ec442ae4f03f)
 
 # Introduction
 
