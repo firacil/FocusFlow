@@ -7,6 +7,7 @@ const history = require('./routes/sessions');
 const suggest = require('./routes/suggestions');
 const focusRoutes = require('./routes/focus');
 const goalRoutes = require('./routes/goals');
+const notify = require('./routes/notifications');
 
 // Initialize Express
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/goals', goalRoutes);
 app.use('/api/session', history);
 app.use('/api/breaks', suggest);
 app.use('/api/focus', focusRoutes);
+app.use('/api/notifications', notify);
 
 // Server Listening
 const PORT = process.env.PORT || 5000;
