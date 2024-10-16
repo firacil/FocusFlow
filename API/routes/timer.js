@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Session = require('../models/session');
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
 // POST /api/timer/start
 router.post('/start', async (req, res) => {
@@ -155,4 +156,55 @@ router.post('/resume', async (req, res) => {
     }
   });
   
+// GET /api/timer/current
+router.get('/current', async (req, res) => {
+  // Check for the authorization header
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Authorization token is required' });
+  }
+
+  // Extract the token (assuming Bearer token format)
+  const token = authHeader.split(' ')[1];
+
+  try {
+    // Verify the token (Assuming you have a method to verify the JWT)
+    const decoded = verifyToken(token); // Implement this function based on your auth method
+    const userId = decoded.userId; // Extract user ID or relevant information
+
+    // Find the currently running session for the user
+    const currentSession = await Session.findOne({ user: userId, status: 'started' });
+    console.log('Current Session:', currentSession);
+
+    if (!currentSession) {
+      return res.status(404).json({ message: 'No active session found' });
+    }
+
+    // Calculate remaining time (Assuming you have a method to calculate remaining time)
+    const remainingTime = calculateRemainingTime(currentSession.startTime, currentSession.duration);
+
+    // Respond with session details
+    res.status(200).json({
+      sessionId: currentSession._id,
+      sessionType: currentSession.sessionType, // Assuming sessionType is a property in your session model
+      remainingTime,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+// Helper function to calculate remaining time
+const calculateRemainingTime = (startTime, duration) => {
+  const elapsedTime = Date.now() - new Date(startTime).getTime();
+  const remainingTime = Math.max(0, duration - elapsedTime); // Ensure non-negative time
+  return Math.floor(remainingTime / 1000); // Convert to seconds
+};
+
+// Function to verify JWT (implement as per your authentication strategy)
+const verifyToken = (token) => {
+  const secretKey = 'secret key'; // Replace with your actual secret key
+  return jwt.verify(token, secretKey);
+};
+
 module.exports = router;
