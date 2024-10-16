@@ -2,12 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Session = require('../models/session'); // Assuming you have a Session model
 const jwt = require('jsonwebtoken');
+const verifyToken = require('./verifyToken');
 
-// Function to verify JWT
-const verifyToken = (token) => {
-  const secretKey = 'firacil'; // Replace with your actual secret key
-  return jwt.verify(token, secretKey);
-};
 
 // GET /api/session/history
 router.get('/history', async (req, res) => {

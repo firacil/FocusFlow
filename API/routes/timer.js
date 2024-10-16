@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Session = require('../models/session');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+const verifyToken = require('./verifyToken');
 
 // POST /api/timer/start
 router.post('/start', async (req, res) => {
@@ -216,12 +216,6 @@ const calculateRemainingTime = (startTime, duration) => {
   console.log('Elapsed Time (ms):', elapsedTime);
   console.log('Remaining Time (ms):', remainingTime);
   return Math.floor(remainingTime / (1000 * 60)); // Convert to seconds
-};
-
-// Function to verify JWT (implement as per your authentication strategy)
-const verifyToken = (token) => {
-  const secretKey = 'firacil'; // Replace with your actual secret key
-  return jwt.verify(token, secretKey);
 };
 
 module.exports = router;

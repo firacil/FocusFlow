@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Session = require('../models/session');
-const jwt = require('jsonwebtoken');
+const verifyToken = require('./verifyToken');
 
-// Function to verify JWT
-const verifyToken = (token) => {
-  const secretKey = 'firacil'; // Replace with your actual secret key
-  return jwt.verify(token, secretKey);
-};
 
 // GET /api/productivity/daily
 router.get('/daily', async (req, res) => {
