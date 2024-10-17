@@ -20,12 +20,17 @@ router.post('/start', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Check for existing session for the user
-    const existingSession = await Session.findOne({ user: user._id, status: 'started' });
+    // Check for existing session for the user and status
+    const existingSession = await Session.findOne({ user: user._id, status: 'Active' });
+    const pausedSession = await Session.findOne({ user: user._id, status: 'paused' });
+
 
     if (existingSession) {
       // Respond with a message indicating the timer is already started
       return res.status(409).json({ message: 'Timer already started, click stop to stop the timer.' });
+    } else if (pausedSession) {
+      // Respond with a message indicating the timer is paused
+      return res.status(409).json({ message: 'You have paused Timer, click resume to resume the timer.' });
     } else {
       // Create a new session if none exists
       const session = new Session({
@@ -33,7 +38,7 @@ router.post('/start', async (req, res) => {
         duration,
         user: user._id,  // Associate session with the user
         startTime: new Date(), // Set start time
-        status: 'started', // Set status to started
+        status: 'Active', // Set status to started
       });
 
       // Save session to the database
@@ -71,12 +76,12 @@ router.post('/stop', async (req, res) => {
       }
   
       // Check if the session is already stopped
-      if (session.status === 'stopped') {
-        return res.status(400).json({ message: 'Session is already stopped' });
+      if (session.status === 'Ended') {
+        return res.status(400).json({ message: 'Session is already Ended, Start another Session' });
       }
   
       // Update session status and end time
-      session.status = 'stopped';
+      session.status = 'Ended';
       session.endTime = new Date(); // Set the end time to now
   
       // Save the updated session
@@ -111,7 +116,10 @@ router.post('/pause', async (req, res) => {
   
       // Check if the session is already paused
       if (session.status === 'paused') {
-        return res.status(400).json({ message: 'Session is already paused' });
+        return res.status(400).json({ message: 'Session is already paused, Resume it' });
+      }
+      if (session.status === 'Ended') {
+        return res.status(400).json({ message: 'Session is already Ended, Start another Session' });
       }
   
       // Update session status to paused
@@ -147,12 +155,16 @@ router.post('/resume', async (req, res) => {
       }
   
       // Check if the session is not paused
+      if (session.status === 'Ended') {
+        return res.status(400).json({ message: 'Session is already Ended, Start another Session' });
+      }
+  
       if (session.status !== 'paused') {
         return res.status(400).json({ message: 'Session is not paused' });
       }
   
       // Update session status to resumed
-      session.status = 'resumed';
+      session.status = 'Active';
   
       // Save the updated session
       const updatedSession = await session.save();
@@ -184,7 +196,7 @@ router.get('/current', async (req, res) => {
     const userId = decoded.userId; // Extract user ID or relevant information
 
     // Find the currently running session for the user
-    const currentSession = await Session.findOne({ user: userId, status: 'started' });
+    const currentSession = await Session.findOne({ user: userId, status: 'Active' });
     console.log('Current Session:', currentSession);
 
     if (!currentSession) {
