@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://firaolmekbib511:hYqpWW6FjQJDjPHI@focus.xcp0f.mongodb.net/focusdb?retryWrites=true&w=majority&appName=focus', {
+mongoose.connect('mongodb+srv://firaolmekbib511:hYqpWW6FjQJDjPHI@focus.xcp0f.mongodb.net/focusflow?retryWrites=true&w=majority&appName=focus', {
   useNewUrlParser: true
 });
 
