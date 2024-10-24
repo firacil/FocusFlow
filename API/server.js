@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://firacil:<s4wQafjFVVBeY8Dh>@focusflow.s5zek.mongodb.net/focusflow?retryWrites=true&w=majority&appName=focusflow', {
+mongoose.connect('mongodb+srv://firacil:Y3lo2ZUYEH47iFdg@focusflow.s5zek.mongodb.net/focusflow?retryWrites=true&w=majority&appName=focusflow', {
   useNewUrlParser: true
 });
 
