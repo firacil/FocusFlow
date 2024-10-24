@@ -17,8 +17,11 @@ app.use(express.json());
 
 // MongoDB Connection
 mongoose.connect('mongodb+srv://firaolmekbib511:hYqpWW6FjQJDjPHI@focus.xcp0f.mongodb.net/focusflow?retryWrites=true&w=majority&appName=focus', {
-  useNewUrlParser: true
-});
+  useNewUrlParser: true,
+  ssl: true
+})
+.then(() => console.log('Connected to MongoDB Atlas successfully!'))
+.catch((err) => console.error('Failed to connect to MongoDB:', err));
 
 // Routes
 app.use('/api/auth', authRoutes);
