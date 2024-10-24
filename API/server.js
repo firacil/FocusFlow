@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/focusflow', {
+mongoose.connect('mongodb+srv://firacil:<s4wQafjFVVBeY8Dh>@focusflow.s5zek.mongodb.net/focusflow?retryWrites=true&w=majority&appName=focusflow', {
   useNewUrlParser: true
 });
 
