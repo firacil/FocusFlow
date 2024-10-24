@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://196.191.219.217:27017/focusflow', {
+mongoose.connect('mongodb://localhost:27017/focusflow', {
   useNewUrlParser: true
 });
 
