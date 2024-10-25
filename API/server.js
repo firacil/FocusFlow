@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const timerRoutes = require('./routes/timer');
@@ -11,6 +12,13 @@ const notify = require('./routes/notifications');
 
 // Initialize Express
 const app = express();
+
+// Allow all origins
+app.use(cors({
+  origin: '*', // Allows any origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  Credentials: true
+}));
 
 // Middleware
 app.use(express.json());
