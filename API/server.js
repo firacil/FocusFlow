@@ -13,10 +13,11 @@ const notify = require('./routes/notifications');
 // Initialize Express
 const app = express();
 
-// Allow all origins
+// Allow on origins 3000
 app.use(cors({
-  origin: '*', // Allows any origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }));
 
 // Middleware
