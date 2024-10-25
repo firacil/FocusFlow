@@ -35,8 +35,7 @@ export default function TimerPage() {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="pt-5">
-      <TimerInfo />
-
+        <TimerInfo />
       </div>
     </ContentLayout>
   );

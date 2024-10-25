@@ -117,6 +117,7 @@ export function Menu({ isOpen }: MenuProps) {
             <TooltipProvider disableHoverableContent>
               <Tooltip delayDuration={100}>
                 <TooltipTrigger asChild>
+                  <Link href="/">
                   <Button
                     onClick={() => {}}
                     variant="outline"
@@ -134,6 +135,8 @@ export function Menu({ isOpen }: MenuProps) {
                       Sign out
                     </p>
                   </Button>
+
+                  </Link>
                 </TooltipTrigger>
                 {isOpen === false && (
                   <TooltipContent side="right">Sign out</TooltipContent>

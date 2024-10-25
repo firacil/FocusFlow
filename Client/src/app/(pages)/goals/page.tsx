@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { GoalInfo } from "@/components/charts/goal-info";
 import GoalHistory from "@/components/goals/goal-history";
+import { CurrentGoals } from "@/components/goals/current-goals";
 
 export default function GoalsPage() {
   return (
@@ -36,8 +37,11 @@ export default function GoalsPage() {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="flex flex-col gap-5 pt-5">
-      <GoalInfo />
-      <GoalHistory  />
+        <div className="grid lg:grid-cols-2 gap-5">
+          <GoalInfo />
+          <CurrentGoals />
+        </div>
+        <GoalHistory />
       </div>
     </ContentLayout>
   );

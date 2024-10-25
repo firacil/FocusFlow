@@ -38,10 +38,10 @@ export default function ReportsPage() {
       </Breadcrumb>
       <div className="pt-5 flex flex-col gap-5">
         <ProductivityOverview />
-        <div className="grid lg:grid-cols-2 gap-5">
           <WeeklyProductivity />
           <MonthlyProductivity />
-        </div>
+        {/* <div className="grid lg:grid-cols-2 gap-5">
+        </div> */}
       </div>
     </ContentLayout>
   );

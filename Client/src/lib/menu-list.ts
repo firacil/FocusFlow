@@ -5,7 +5,10 @@ import {
   Bookmark,
   SquarePen,
   LayoutGrid,
-  LucideIcon
+  LucideIcon,
+  ClipboardMinus,
+  Goal,
+  Timer
 } from "lucide-react";
 
 type Submenu = {
@@ -61,17 +64,17 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "/timer",
           label: "Timer",
-          icon: Bookmark
+          icon: Timer,
         },
         {
           href: "/reports",
           label: "Reports",
-          icon: Tag
+          icon: ClipboardMinus
         },
         {
           href: "/goals",
           label: "Goals",
-          icon: Tag
+          icon: Goal,
         }
       ]
     },

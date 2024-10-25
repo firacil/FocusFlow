@@ -5,6 +5,8 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
+import { Toaster } from "@/components/ui/toaster"
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.APP_URL
@@ -44,6 +46,7 @@ export default function RootLayout({
       <body className={GeistSans.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

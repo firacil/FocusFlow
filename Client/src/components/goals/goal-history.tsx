@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Card,
   CardContent,
@@ -6,11 +8,13 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { GoalCard } from "./goal-card";
+import { getActiveGoals } from "@/lib/goals/action";
+import { useEffect } from "react";
 
 const goalHistory = [
   {
     id: 1,
-    type: "Daily",
     targetHours: 5,
     achieved: true,
     dateSet: "2024-10-05",
@@ -19,8 +23,7 @@ const goalHistory = [
   },
   {
     id: 2,
-    type: "Weekly",
-    targetHours: 30,
+    targetHours: 3,
     achieved: false,
     dateSet: "2024-09-30",
     dateAchieved: null,
@@ -28,8 +31,7 @@ const goalHistory = [
   },
   {
     id: 3,
-    type: "Monthly",
-    targetHours: 120,
+    targetHours: 12,
     achieved: true,
     dateSet: "2024-09-01",
     dateAchieved: "2024-09-28",
@@ -37,7 +39,6 @@ const goalHistory = [
   },
   {
     id: 4,
-    type: "Daily",
     targetHours: 6,
     achieved: false,
     dateSet: "2024-10-10",
@@ -46,8 +47,7 @@ const goalHistory = [
   },
   {
     id: 5,
-    type: "Weekly",
-    targetHours: 35,
+    targetHours: 5,
     achieved: true,
     dateSet: "2024-09-23",
     dateAchieved: "2024-09-29",
@@ -56,17 +56,16 @@ const goalHistory = [
 ];
 
 export default function GoalHistory() {
+
   return (
     <Card className="">
       <CardHeader>
         <CardTitle>Goal History</CardTitle>
       </CardHeader>
       <CardContent>
-        <ul className="goal-history">
+        <ul className="flex flex-col gap-4">
           {goalHistory.map((goal) => (
-            <li key={goal.id}>
-              {goal.type} Goal: {goal.achieved ? "Achieved" : "Missed"}
-            </li>
+            <GoalCard key={goal.id} {...goal} />
           ))}
         </ul>
       </CardContent>

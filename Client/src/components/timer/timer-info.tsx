@@ -11,35 +11,34 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import Timer from "./timer";
+import { NewTimer } from "./new-timer";
+import { useTimer } from "@/lib/useTimer";
 
-export const TimerInfo = () => (
-  <Card className="">
-    <CardHeader>
-      <CardTitle>Current session</CardTitle>
-      <CardDescription>Work session</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <div className="flex items-center gap-x-10">
-        <ProgressCircle value={75} className="w-[10rem] h-[10rem]">
-          <span className="text-xl font-medium text-gray-900 dark:text-gray-50">
-            30:00
-          </span>
-        </ProgressCircle>
-        <div>
-          <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
-            <Button variant="outline">
-              <Pause />
+export const TimerInfo = () => {
+  const { endTimer, sessionType } = useTimer();
+  return (
+    <Card className="">
+      <CardHeader>
+        <CardTitle>Current session</CardTitle>
+        <CardDescription>{sessionType}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center gap-x-10 flex-col lg:flex-row gap-y-10">
+          <Timer startingTime={0} sessionType={sessionType}/>
+          <div className="flex gap-5">
+            <NewTimer>
+              <Button variant="outline">New session</Button>
+            </NewTimer>
+            <Button variant="outline" onClick={() => endTimer()}>
+              End session
             </Button>
-          </p>
+          </div>
         </div>
-        <div className="flex gap-5">
-            <Button variant="outline">New session</Button>
-            <Button variant="outline">End session</Button>
-        </div>
-      </div>
-    </CardContent>
-    {/* <CardFooter className="flex justify-between">
+      </CardContent>
+      {/* <CardFooter className="flex justify-between">
      
     </CardFooter> */}
-  </Card>
-);
+    </Card>
+  );
+};

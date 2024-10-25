@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import Timer from "../timer/timer";
 
 export const CurrentSessionInfo = () => (
   <Card className="">
@@ -19,20 +20,7 @@ export const CurrentSessionInfo = () => (
       <CardDescription>Work session</CardDescription>
     </CardHeader>
     <CardContent>
-      <div className="flex items-center gap-x-10 justify-center">
-        <ProgressCircle value={75} className="w-[10rem] h-[10rem]">
-          <span className="text-xl font-medium text-gray-900 dark:text-gray-50">
-            30:00
-          </span>
-        </ProgressCircle>
-        <div>
-          <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
-            <Button variant="outline">
-              <Pause />
-            </Button>
-          </p>
-        </div>
-      </div>
+     <Timer startingTime={0} sessionType="work" />
     </CardContent>
     {/* <CardFooter className="flex justify-between">
      

@@ -1,3 +1,6 @@
+'use client';
+
+import { NewGoal } from "../goals/new-goal";
 import { Button } from "../ui/button";
 import { ProgressBar } from "../ui/progress-bar";
 import {
@@ -29,7 +32,9 @@ export const GoalInfo = () => {
       </CardContent>
       <CardFooter className="flex justify-between">
         <div>
-          <Button variant="outline">Set new goal</Button>
+          <NewGoal>
+            <Button variant="outline">Set new goal</Button>
+          </NewGoal>
         </div>
       </CardFooter>
     </Card>
