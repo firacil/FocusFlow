@@ -5,6 +5,11 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  goals: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Goal' }], // Link to goals
+  notifications: {
+    subscribed: { type: Boolean, default: false },
+    subscriptionData: { type: Object }  // To store WebPush subscription data
+}
 });
 
 userSchema.pre('save', async function (next) {
